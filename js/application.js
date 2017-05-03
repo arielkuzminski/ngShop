@@ -30,7 +30,7 @@ angular.module( 'app' , [ 'ngRoute', 'angular-storage' ] )
 
 	$routeProvider.when( '/admin/user/edit/:id' , {
 		controller: 'userEditController',
-		templateUrl : 'partialsAdmin//Users/user-edit.html'
+		templateUrl : 'partials/Admin/Users/user-edit.html'
 	});
 
 	$routeProvider.when( '/admin/user/create' , {
