@@ -7,7 +7,7 @@ angular.module('app')
 
 /////////MAIN/////////
 
-function navigationController($scope, $location) {
+function navigationController($scope, $location, store, cart) {
 
   $scope.navigation = function() {
     if (/^\/admin/.test($location.path())) {
@@ -21,5 +21,9 @@ function navigationController($scope, $location) {
   $scope.isActive = function(path) {
     return $location.path() === path;
   };
+
+  store.set( 'test' , 'Nowa wartość');
+
+  cart.show();
 
 }

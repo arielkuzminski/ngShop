@@ -20,7 +20,7 @@ angular.module('app')
 //*****************************PRODUCTS****************************//
 /////////////////////////////////////////////////////////////////////
 
-function productsController($scope, $http) {
+function productsController($scope, $http, store) {
 
   $http.get('model/products.json').
   success(function(data) {
@@ -37,6 +37,8 @@ function productsController($scope, $http) {
 
     console.log('Usunięto: ' + product.nazwa);
   };
+
+  console.log( store.get( 'test' ));
 
 }
 
