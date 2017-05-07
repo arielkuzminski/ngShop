@@ -57,6 +57,11 @@ angular.module( 'app' , [ 'ngRoute', 'angular-storage' ] )
 		templateUrl : 'partials/Site/Products/product-show.html'
 	});
 
+	$routeProvider.when( '/cart' , {
+		controller: 'cartController',
+		templateUrl : 'partials/Site/cart.html'
+	});
+
 	// ================== DEFAULT ================== //
 
 	$routeProvider.otherwise({

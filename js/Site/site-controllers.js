@@ -5,12 +5,13 @@ angular.module('app')
   //PRODUCTS//
   .controller('siteProductsController', siteProductsController)
   .controller('siteShowProductController', siteShowProductController)
+  .controller('cartController', cartController)
 
 /////////////////////////////////////////////////////////////////////
 //*****************************PRODUCTS****************************//
 /////////////////////////////////////////////////////////////////////
 
-function siteProductsController($scope, $http) {
+function siteProductsController($scope, $http, cartService) {
 
   $http.get('model/products.json').
   success(function(data) {
@@ -19,10 +20,14 @@ function siteProductsController($scope, $http) {
     console.log('Błąd pobrania pliku json');
   });
 
+  $scope.addToCart = function(product) {
+    cartService.add(product);
+  }
+
 }
 
 
-function siteShowProductController($scope, $http, $routeParams) {
+function siteShowProductController($scope, $http, $routeParams, cartService) {
 
   $http.get('model/products.json')
     .success(function(data) {
@@ -31,5 +36,19 @@ function siteShowProductController($scope, $http, $routeParams) {
     }).error(function() {
       console.log('Błąd pobrania pliku json');
     });
+
+    $scope.addToCart = function(product) {
+      cartService.add(product);
+    }
+
+}
+
+function cartController($scope, cartService) {
+
+  $scope.cart = cartService;
+
+  $scope.emptyCart = function() {
+    cartService.empty();
+  };
 
 }
