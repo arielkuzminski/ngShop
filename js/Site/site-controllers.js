@@ -51,4 +51,12 @@ function cartController($scope, cartService) {
     cartService.empty();
   };
 
+  $scope.total = function () {
+    var total = 0;
+    angular.forEach($scope.cart, function (item) {
+      total += item.qty * item.price;
+    });
+    return total;
+  };
+
 }
