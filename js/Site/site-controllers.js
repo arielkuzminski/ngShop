@@ -59,4 +59,19 @@ function cartController($scope, cartService) {
     return total;
   };
 
+  $scope.removeItem = function ($index) {
+    $scope.cart.splice( $index, 1 );
+    cartService.update($scope.cart);
+
+  };
+
+  $scope.setOrder = function ($event) {
+    // $event.preventDefault();
+
+  }
+
+  $scope.$watch( function () {
+    cartService.update( $scope.cart );
+  });
+
 }

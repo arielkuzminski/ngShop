@@ -47,6 +47,10 @@ function cartService(store) {
     cart.length = 0;
   }
 
+  cart.update = function ( cart ) {
+    store.set('cart', cart);
+  }
+
 
   return cart;
 
