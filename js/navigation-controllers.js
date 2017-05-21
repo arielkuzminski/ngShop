@@ -22,4 +22,8 @@ function navigationController($scope, $location, cartService) {
     return $location.path() === path;
   };
 
+  $scope.$watch(function() {
+    $scope.cart = cartService.show().length;
+  })
+
 }

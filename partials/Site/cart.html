@@ -1,11 +1,15 @@
-<form name="cartForm" ng-submit="setOrder($event)" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<form name="cartForm" id="paypalForm" ng-submit="setOrder($event)" action="https://www.paypal.com/cgi-bin/webscr" method="post">
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
 
         <h1>Koszyk</h1>
 
-        <div ng-if="!cart.length" class="alert alert-info">
+        <div ng-if="alert" class="alert alert-{{alert.type}}">
+          {{alert.msg}}
+        </div>
+
+        <div ng-if="!cart.length && alert.type != 'success'" class="alert alert-info">
           Koszyk jest pusty.
         </div>
 

@@ -43,7 +43,7 @@ function siteShowProductController($scope, $http, $routeParams, cartService) {
 
 }
 
-function cartController($scope, cartService) {
+function cartController($scope, $filter, cartService) {
 
   $scope.cart = cartService;
 
@@ -56,6 +56,7 @@ function cartController($scope, cartService) {
     angular.forEach($scope.cart, function (item) {
       total += item.qty * item.price;
     });
+    total = $filter('number')(total, 2);
     return total;
   };
 
@@ -66,7 +67,22 @@ function cartController($scope, cartService) {
   };
 
   $scope.setOrder = function ($event) {
-    // $event.preventDefault();
+
+    // TODO: zapisz zamówienie w bazie
+
+    var loggedIn = true;
+
+    if (!loggedIn) {
+      $scope.alert = { type: 'warning', msg : 'Zaloguj się by złożyć zamówienie!'};
+      $event.preventDefault();
+      return false;
+    }
+
+    $scope.alert = { type: 'success', msg : 'Zamówienie złożone, trwa przekierowywanie do płatności...'};
+    $scope.emptyCart();
+
+    $event.preventDefault();
+    $( '#paypalForm' ).submit();
 
   }
 
