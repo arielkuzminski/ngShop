@@ -38,12 +38,12 @@ function productsController($scope, $http, store) {
     console.log('Usunięto: ' + product.nazwa);
   };
 
-  console.log( store.get( 'test' ));
+  console.log(store.get('test'));
 
 }
 
 
-function productEditController($scope, $http, $routeParams) {
+function productEditController($scope, $http, $routeParams, FileUploader) {
 
   $http.get('model/products.json')
     .success(function(data) {
@@ -59,6 +59,22 @@ function productEditController($scope, $http, $routeParams) {
 
     console.log(product);
     console.log($routeParams.id);
+  };
+
+  var uploader = $scope.uploader = new FileUploader({
+    // url: // ścieżka do api obsługującego upload
+  });
+
+  uploader.filters.push({
+    name: 'imageFilter',
+    fn: function(item /*{File|FileLikeObject}*/ , options) {
+      var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+      return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+    }
+  });
+
+  uploader.onCompleteItem = function(fileItem, response, status, headers) {
+    console.info('onCompleteItem', fileItem, response, status, headers);
   };
 
 }

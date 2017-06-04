@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'app' , [ 'ngRoute', 'angular-storage' ] )
+angular.module( 'app' , [ 'ngRoute', 'angular-storage', 'angularFileUpload' ] )
 
 .config( [ '$routeProvider' , '$httpProvider' , function( $routeProvider , $httpProvider ) {
 
