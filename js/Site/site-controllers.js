@@ -5,6 +5,9 @@ angular.module('app')
   //PRODUCTS//
   .controller('siteProductsController', siteProductsController)
   .controller('siteShowProductController', siteShowProductController)
+  .controller('siteOrdersController', siteOrdersController)
+  .controller('login', login)
+  .controller('register', register)
   .controller('cartController', cartController)
 
 /////////////////////////////////////////////////////////////////////
@@ -89,5 +92,47 @@ function cartController($scope, $filter, cartService) {
   $scope.$watch( function () {
     cartService.update( $scope.cart );
   });
+
+}
+
+function siteOrdersController($scope, $http) {
+
+  $http.get('model/orders.json')
+    .success(function(data) {
+      $scope.orders = data;
+    })
+    .error(function() {
+      console.log('błąd');
+    })
+
+}
+
+function login($scope, $http) {
+
+  // TODO: pograć dane z formularza i przesłać do bazy (uwierzytelnianie)
+
+  $scope.input = {};
+
+  $scope.formSubmit = function () {
+    $scope.errors = {};
+    $scope.errors.login = true;
+    console.log( $scope.input );
+  };
+
+}
+
+function register($scope, $http) {
+
+  // TODO: pograć dane z formularza i przesłać do bazy (uwierzytelnianie)
+
+  $scope.input = {};
+
+  $scope.formSubmit = function () {
+    $scope.errors = {};
+    $scope.errors.login = true;
+    $scope.errors.name = "Login zajęty";
+    $scope.submit = true;
+    console.log( $scope.input );
+  };
 
 }

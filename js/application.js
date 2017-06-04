@@ -62,6 +62,25 @@ angular.module( 'app' , [ 'ngRoute', 'angular-storage' ] )
 		templateUrl : 'partials/Site/cart.html'
 	});
 
+	$routeProvider.when( '/orders' , {
+		controller: 'siteOrdersController',
+		templateUrl : 'partials/Site/Orders/orders.html'
+	});
+
+	// ================== Login & Register ================== //
+
+	$routeProvider.when( '/login' , {
+		controller: 'login',
+		templateUrl : 'partials/Site/login.html'
+	});
+
+
+	$routeProvider.when( '/register' , {
+		controller: 'register',
+		templateUrl : 'partials/Site/register.html'
+	});
+
+
 	// ================== DEFAULT ================== //
 
 	$routeProvider.otherwise({
