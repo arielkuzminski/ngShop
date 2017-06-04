@@ -33,8 +33,11 @@ function productsController($scope, $http, store) {
 
     //TODO: Zapisać dane przez API
 
-    $scope.products.splice($index, 1)
+    if (!confirm('Czy na pewno chcesz usunąć ten produkt?')) {
+      return false;
+    }
 
+    $scope.products.splice($index, 1)
     console.log('Usunięto: ' + product.nazwa);
   };
 
@@ -104,6 +107,9 @@ function usersController($scope, $http) {
     })
 
   $scope.deleteUser = function(user, $index) {
+    if (!confirm('Czy na pewno chcesz usunąć tego użytkownika?')) {
+      return false;
+    }
     $scope.users.splice($index, 1);
   }
 
@@ -153,6 +159,9 @@ function ordersController($scope, $http) {
     })
 
   $scope.deleteOrder = function(order, $index) {
+    if (!confirm('Czy na pewno chcesz usunąć to zamówienie?')) {
+      return false;
+    }
     $scope.orders.splice($index, 1);
   };
 
