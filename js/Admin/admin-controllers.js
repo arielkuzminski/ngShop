@@ -48,24 +48,38 @@ function productsController($scope, $http, store) {
 
 function productEditController($scope, $http, $routeParams, FileUploader) {
 
-  $http.get('model/products.json')
+  var id = $routeParams.id;
+  $scope.id = id;
+
+  $http.post('model/products.json')
+  .success(function(data) {
+    var products = data;
+    $scope.product = products[id];
+  }).error(function() {
+    console.log('Błąd pobrania pliku json');
+  });
+
+  function getImages() {
+    $http.get('api/admin/images/get/' + id)
     .success(function(data) {
-      var products = data;
-      $scope.product = products[$routeParams.id];
+      $scope.images = data;
     }).error(function() {
       console.log('Błąd pobrania pliku json');
     });
+  }
+
+  getImages();
 
   $scope.saveChanges = function(product) {
 
     //TODO: Zapisać dane przez API
 
     console.log(product);
-    console.log($routeParams.id);
+    console.log(id);
   };
 
   var uploader = $scope.uploader = new FileUploader({
-    // url: // ścieżka do api obsługującego upload
+    url: 'api/admin/images/upload/' + id
   });
 
   uploader.filters.push({
@@ -78,6 +92,7 @@ function productEditController($scope, $http, $routeParams, FileUploader) {
 
   uploader.onCompleteItem = function(fileItem, response, status, headers) {
     console.info('onCompleteItem', fileItem, response, status, headers);
+    getImages();
   };
 
 }
