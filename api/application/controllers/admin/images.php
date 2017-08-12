@@ -42,4 +42,21 @@ class Images extends CI_Controller {
 
     echo json_encode($newFiles);
   }
+
+	public function delete() {
+
+		$post = file_get_contents('php://input');
+		$_POST = json_decode($post, true);
+
+		$id = $this -> input -> post('id');
+		$image = $this -> input -> post('image');
+
+		$imagePath = FCPATH . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
+    $imagePath = $imagePath . $id . DIRECTORY_SEPARATOR;
+		$imagePath = $imagePath . $image;
+
+		unlink($imagePath);
+
+		var_dump($_POST);
+	}
 }

@@ -48,19 +48,19 @@ function productsController($scope, $http, store) {
 
 function productEditController($scope, $http, $routeParams, FileUploader) {
 
-  var id = $routeParams.id;
-  $scope.id = id;
+  var productId = $routeParams.id;
+  $scope.id = productId;
 
   $http.post('model/products.json')
   .success(function(data) {
     var products = data;
-    $scope.product = products[id];
+    $scope.product = products[productId];
   }).error(function() {
     console.log('Błąd pobrania pliku json');
   });
 
   function getImages() {
-    $http.get('api/admin/images/get/' + id)
+    $http.get('api/admin/images/get/' + productId)
     .success(function(data) {
       $scope.images = data;
     }).error(function() {
@@ -74,12 +74,10 @@ function productEditController($scope, $http, $routeParams, FileUploader) {
 
     //TODO: Zapisać dane przez API
 
-    console.log(product);
-    console.log(id);
   };
 
   var uploader = $scope.uploader = new FileUploader({
-    url: 'api/admin/images/upload/' + id
+    url: 'api/admin/images/upload/' + productId
   });
 
   uploader.filters.push({
@@ -93,6 +91,20 @@ function productEditController($scope, $http, $routeParams, FileUploader) {
   uploader.onCompleteItem = function(fileItem, response, status, headers) {
     console.info('onCompleteItem', fileItem, response, status, headers);
     getImages();
+  };
+
+  $scope.deleteImage = function (imageName, index) {
+    $scope.images.splice(index, 1);
+    console.log(imageName);
+    console.log(index);
+    $http.post('api/admin/images/delete/', {
+      id: productId,
+      image: imageName
+    })
+    .success(function() {
+    }).error(function() {
+      console.log('Błąd pobrania pliku json');
+    });
   };
 
 }

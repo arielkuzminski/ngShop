@@ -105,6 +105,7 @@
         <p>Opis: {{product.description}}</p>
         <h3><span class="label label-warning">Cena: {{product.price | number:2}} zł</span></h3>
         <div ng-repeat="image in images">
+          <button ng-click="deleteImage(image, $index)" type="button" class="btn btn-danger btn-xs" style="position: relative; top: 5px; right: 25px;"><strong>&times;</strong></button>
           <img class="img-thumbnail pull-left" style="max-width: 40%; margin: 5px" ng-src="uploads/{{id}}/{{image}}" alt="" />
         </div>
       </div>
