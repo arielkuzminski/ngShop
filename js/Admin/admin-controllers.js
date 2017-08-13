@@ -22,7 +22,7 @@ angular.module('app')
 
 function productsController($scope, $http, store) {
 
-  $http.get('model/products.json').
+  $http.get('api/admin/products/get').
   success(function(data) {
     $scope.products = data;
   }).error(function() {
@@ -51,10 +51,9 @@ function productEditController($scope, $http, $routeParams, FileUploader) {
   var productId = $routeParams.id;
   $scope.id = productId;
 
-  $http.post('model/products.json')
+  $http.post('api/admin/products/get/' + productId)
   .success(function(data) {
-    var products = data;
-    $scope.product = products[productId];
+    $scope.product = data
   }).error(function() {
     console.log('Błąd pobrania pliku json');
   });
